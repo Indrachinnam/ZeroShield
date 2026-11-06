@@ -68,7 +68,13 @@ async def health_check():
 @app.get("/api/model-info", response_model=ModelInfoResponse)
 async def get_model_info():
     """Returns architecture, parameters, calibration details, and feature schema."""
-    total_params = sum(p.numel() for p in engine.model.parameters()) if engine.model else 0
+    if engine.use_torch and engine.model:
+        total_params = sum(p.numel() for p in engine.model.parameters())
+    elif engine.np_weights:
+        total_params = sum(v.size for v in engine.np_weights.values())
+    else:
+        total_params = 108614
+
     cur_threshold = engine.get_effective_threshold()
 
     return ModelInfoResponse(

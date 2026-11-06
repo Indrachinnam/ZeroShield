@@ -8,10 +8,15 @@ import os
 import json
 import numpy as np
 import pandas as pd
-import torch
-from torch.utils.data import Dataset
 from typing import Dict, List, Tuple, Optional
 from sklearn.preprocessing import StandardScaler
+
+try:
+    import torch
+    from torch.utils.data import Dataset
+except (ImportError, TypeError):
+    torch = None
+    Dataset = object
 
 # Class definitions
 KNOWN_CLASSES = ["Benign", "DoS", "PortScan", "BruteForce", "WebAttack", "Botnet"]
