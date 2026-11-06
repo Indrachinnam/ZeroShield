@@ -9,7 +9,12 @@ import sqlite3
 import datetime
 from typing import Dict, List, Optional, Any, Tuple
 
-DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "zeroshield.db")
+# Use /tmp on Vercel serverless where root filesystem is read-only
+if os.environ.get("VERCEL"):
+    DB_PATH = "/tmp/zeroshield.db"
+else:
+    DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "zeroshield.db")
+
 
 
 def get_connection() -> sqlite3.Connection:
