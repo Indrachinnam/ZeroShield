@@ -1,0 +1,45 @@
+{
+  "model_name": "FlowTransformer",
+  "architecture": "FT-Transformer with [CLS] token and Multi-Head Self-Attention",
+  "d_model": 64,
+  "nhead": 4,
+  "num_encoder_layers": 3,
+  "dim_feedforward": 128,
+  "num_classes": 6,
+  "classes": [
+    "Benign",
+    "DoS",
+    "PortScan",
+    "BruteForce",
+    "WebAttack",
+    "Botnet"
+  ],
+  "categorical_features": [
+    "protocol",
+    "dst_port_category"
+  ],
+  "numerical_features": [
+    "flow_duration",
+    "total_fwd_packets",
+    "total_bwd_packets",
+    "packet_len_mean",
+    "packet_len_std",
+    "bytes_per_sec",
+    "packets_per_sec",
+    "flag_syn",
+    "flag_fin",
+    "flag_rst",
+    "flag_ack",
+    "flag_psh",
+    "flow_iat_mean",
+    "flow_iat_std"
+  ],
+  "calibrated_threshold": -7.439853668212891,
+  "calibrated_fpr": 0.05,
+  "test_accuracy": 1.0,
+  "test_macro_f1": 1.0,
+  "is_synthetic": true,
+  "training_samples": 15000,
+  "train_duration_sec": 14.55,
+  "created_at": "2026-11-05 21:06:02"
+}

@@ -1,0 +1,19 @@
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# System & OS
+.DS_Store
+Thumbs.db
+
+# Logs & DBs
+*.log
+zeroshield.db

@@ -1,0 +1,160 @@
+{
+  "held_out_attacks": {
+    "DoS": {
+      "FlowTransformer": {
+        "auroc": 1.0,
+        "aupr": 1.0,
+        "fpr_at_95_tpr": 0.0,
+        "macro_f1": 1.0
+      },
+      "Random Forest": {
+        "auroc": 1.0,
+        "aupr": 1.0,
+        "fpr_at_95_tpr": 0.0,
+        "macro_f1": 1.0
+      },
+      "Gradient Boosting": {
+        "auroc": 1.0,
+        "aupr": 1.0,
+        "fpr_at_95_tpr": 0.0,
+        "macro_f1": 0.9991
+      },
+      "MLP": {
+        "auroc": 0.941,
+        "aupr": 0.9202,
+        "fpr_at_95_tpr": 0.2792,
+        "macro_f1": 1.0
+      }
+    },
+    "PortScan": {
+      "FlowTransformer": {
+        "auroc": 0.9998,
+        "aupr": 0.9994,
+        "fpr_at_95_tpr": 0.0004,
+        "macro_f1": 1.0
+      },
+      "Random Forest": {
+        "auroc": 1.0,
+        "aupr": 1.0,
+        "fpr_at_95_tpr": 0.0,
+        "macro_f1": 1.0
+      },
+      "Gradient Boosting": {
+        "auroc": 0.9947,
+        "aupr": 0.9756,
+        "fpr_at_95_tpr": 0.006,
+        "macro_f1": 0.9986
+      },
+      "MLP": {
+        "auroc": 0.7593,
+        "aupr": 0.638,
+        "fpr_at_95_tpr": 0.6348,
+        "macro_f1": 0.9995
+      }
+    },
+    "BruteForce": {
+      "FlowTransformer": {
+        "auroc": 1.0,
+        "aupr": 0.9999,
+        "fpr_at_95_tpr": 0.0007,
+        "macro_f1": 1.0
+      },
+      "Random Forest": {
+        "auroc": 1.0,
+        "aupr": 1.0,
+        "fpr_at_95_tpr": 0.0,
+        "macro_f1": 1.0
+      },
+      "Gradient Boosting": {
+        "auroc": 0.9899,
+        "aupr": 0.976,
+        "fpr_at_95_tpr": 0.0732,
+        "macro_f1": 1.0
+      },
+      "MLP": {
+        "auroc": 0.999,
+        "aupr": 0.9973,
+        "fpr_at_95_tpr": 0.0054,
+        "macro_f1": 1.0
+      }
+    },
+    "WebAttack": {
+      "FlowTransformer": {
+        "auroc": 0.6132,
+        "aupr": 0.3305,
+        "fpr_at_95_tpr": 0.5366,
+        "macro_f1": 0.9995
+      },
+      "Random Forest": {
+        "auroc": 0.9977,
+        "aupr": 0.9796,
+        "fpr_at_95_tpr": 0.0029,
+        "macro_f1": 1.0
+      },
+      "Gradient Boosting": {
+        "auroc": 1.0,
+        "aupr": 1.0,
+        "fpr_at_95_tpr": 0.0,
+        "macro_f1": 1.0
+      },
+      "MLP": {
+        "auroc": 0.2437,
+        "aupr": 0.2403,
+        "fpr_at_95_tpr": 1.0,
+        "macro_f1": 0.9995
+      }
+    },
+    "Botnet": {
+      "FlowTransformer": {
+        "auroc": 0.9925,
+        "aupr": 0.9865,
+        "fpr_at_95_tpr": 0.0007,
+        "macro_f1": 1.0
+      },
+      "Random Forest": {
+        "auroc": 0.9989,
+        "aupr": 0.9948,
+        "fpr_at_95_tpr": 0.0029,
+        "macro_f1": 1.0
+      },
+      "Gradient Boosting": {
+        "auroc": 0.9998,
+        "aupr": 0.9992,
+        "fpr_at_95_tpr": 0.0014,
+        "macro_f1": 1.0
+      },
+      "MLP": {
+        "auroc": 0.9985,
+        "aupr": 0.99,
+        "fpr_at_95_tpr": 0.005,
+        "macro_f1": 0.9995
+      }
+    }
+  },
+  "model_summary": {
+    "FlowTransformer": {
+      "mean_auroc": 0.9211,
+      "mean_aupr": 0.8633,
+      "mean_fpr95": 0.1077,
+      "mean_f1": 0.9999
+    },
+    "Random Forest": {
+      "mean_auroc": 0.9993,
+      "mean_aupr": 0.9949,
+      "mean_fpr95": 0.0012,
+      "mean_f1": 1.0
+    },
+    "Gradient Boosting": {
+      "mean_auroc": 0.9969,
+      "mean_aupr": 0.9902,
+      "mean_fpr95": 0.0161,
+      "mean_f1": 0.9995
+    },
+    "MLP": {
+      "mean_auroc": 0.7883,
+      "mean_aupr": 0.7572,
+      "mean_fpr95": 0.3849,
+      "mean_f1": 0.9997
+    }
+  }
+}

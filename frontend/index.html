@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroShield | Zero-Day Exploit Detection</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom Cyber Theme CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <div id="sidebar">
+    <div class="brand-header">
+      <div class="brand-title">
+        <i class="fa-solid fa-shield-halved text-info"></i>
+        <span>ZEROSHIELD</span>
+      </div>
+      <div class="brand-subtitle">Transformer Zero-Day Sentinel</div>
+    </div>
+
+    <ul class="nav nav-pills flex-column mt-3">
+      <li class="nav-item">
+        <a class="nav-link active" data-view="dashboard" id="nav-dashboard">
+          <i class="fa-solid fa-gauge-high"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-view="monitor" id="nav-monitor">
+          <i class="fa-solid fa-satellite-dish"></i> Live Monitor
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-view="upload" id="nav-upload">
+          <i class="fa-solid fa-file-import"></i> Analyze Upload
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-view="alerts" id="nav-alerts">
+          <i class="fa-solid fa-triangle-exclamation"></i> Security Alerts
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-view="performance" id="nav-performance">
+          <i class="fa-solid fa-chart-column"></i> Model Performance
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-view="architecture" id="nav-architecture">
+          <i class="fa-solid fa-network-wired"></i> How It Works
+        </a>
+      </li>
+    </ul>
+
+    <!-- Footer System Status in Sidebar -->
+    <div class="mt-auto p-3 border-top border-secondary-subtle">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="text-secondary small">Engine Status</span>
+        <span class="badge bg-success-subtle text-success border border-success-subtle">
+          <span class="pulsing-dot dot-green me-1"></span> ONLINE
+        </span>
+      </div>
+      <div class="text-muted small" id="sidebar-model-info">
+        Model: FlowTransformer (d=64)
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content View Area -->
+  <div id="main-content">
+
+    <!-- Top System Header Banner -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h4 class="fw-bold mb-1" id="page-heading">Operations Dashboard</h4>
+        <p class="text-secondary small mb-0">Autonomous Perimeter Traffic Analysis & Open-Set Novelty Detection</p>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <div class="badge bg-dark-subtle border border-secondary-subtle px-3 py-2 text-secondary">
+          <i class="fa-solid fa-sliders text-info me-1"></i>
+          Threshold: <strong class="text-light" id="top-threshold-badge">-7.4400</strong>
+        </div>
+        <div class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2" id="dataset-status-badge">
+          <i class="fa-solid fa-database me-1"></i> <span id="dataset-status-text">Synthetic CIC-IDS2017</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Synthetic Dataset Banner -->
+    <div class="synthetic-banner" id="synthetic-notice-banner">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-microchip text-warning"></i>
+        <span><strong>Synthetic Dataset Active:</strong> FlowTransformer is trained on high-fidelity synthetic flows calibrated to CIC-IDS2017 distributions. Place real CIC-IDS2017 CSVs in <code>/data</code> to auto-train on production captures.</span>
+      </div>
+      <span class="badge bg-warning-subtle text-warning">DEMO READY</span>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- VIEW 1: DASHBOARD -->
+    <!-- ============================================================== -->
+    <div class="view-panel" id="view-dashboard">
+      <!-- 5 KPI Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-xl col-md-4 col-sm-6">
+          <div class="cyber-card kpi-card p-3" style="--kpi-border: var(--color-cyan);">
+            <div class="kpi-title"><i class="fa-solid fa-arrows-split-up-and-left text-info me-1"></i> Flows Analyzed</div>
+            <div class="kpi-value" id="kpi-total-flows">0</div>
+            <div class="kpi-subtext"><span class="text-success"><i class="fa-solid fa-bolt"></i> Real-time</span> active ingestion</div>
+          </div>
+        </div>
+        <div class="col-xl col-md-4 col-sm-6">
+          <div class="cyber-card kpi-card p-3" style="--kpi-border: var(--color-green);">
+            <div class="kpi-title"><i class="fa-solid fa-circle-check text-success me-1"></i> Benign Ratio</div>
+            <div class="kpi-value text-success" id="kpi-benign-pct">94.2%</div>
+            <div class="kpi-subtext">Normal perimeter traffic</div>
+          </div>
+        </div>
+        <div class="col-xl col-md-4 col-sm-6">
+          <div class="cyber-card kpi-card p-3" style="--kpi-border: var(--color-amber);">
+            <div class="kpi-title"><i class="fa-solid fa-shield-virus text-warning me-1"></i> Known Attacks</div>
+            <div class="kpi-value text-warning" id="kpi-known-attacks">0</div>
+            <div class="kpi-subtext">Matched signature classes</div>
+          </div>
+        </div>
+        <div class="col-xl col-md-4 col-sm-6">
+          <div class="cyber-card kpi-card p-3" style="--kpi-border: var(--color-red);">
+            <div class="kpi-title"><i class="fa-solid fa-radiation text-danger me-1"></i> Zero-Day Alerts</div>
+            <div class="kpi-value text-danger" id="kpi-zero-days">0</div>
+            <div class="kpi-subtext"><span class="pulsing-dot dot-red me-1"></span>Novelty score &gt; threshold</div>
+          </div>
+        </div>
+        <div class="col-xl col-md-4 col-sm-6">
+          <div class="cyber-card kpi-card p-3" style="--kpi-border: var(--color-purple);">
+            <div class="kpi-title"><i class="fa-solid fa-stopwatch text-info me-1"></i> Avg Latency</div>
+            <div class="kpi-value" id="kpi-latency">1.2ms</div>
+            <div class="kpi-subtext">Transformer inference/flow</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="row g-4 mb-4">
+        <!-- Live Traffic Timeline -->
+        <div class="col-lg-8">
+          <div class="cyber-card h-100">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-chart-line text-info me-2"></i>Network Traffic Volume & Threat Rate</span>
+              <span class="badge bg-info-subtle text-info">Live 60s Window</span>
+            </div>
+            <div class="cyber-card-body">
+              <div style="height: 280px; position: relative;">
+                <canvas id="trafficTimelineChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attack Distribution Doughnut -->
+        <div class="col-lg-4">
+          <div class="cyber-card h-100">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-chart-pie text-warning me-2"></i>Traffic Classification</span>
+            </div>
+            <div class="cyber-card-body d-flex flex-column align-items-center justify-content-center">
+              <div style="height: 240px; width: 100%; position: relative;">
+                <canvas id="attackDoughnutChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Threat Alerts Feed -->
+      <div class="cyber-card">
+        <div class="cyber-card-header">
+          <span><i class="fa-solid fa-bell text-danger me-2"></i>Live Alert Feed</span>
+          <button class="btn btn-sm cyber-btn-outline" onclick="app.switchView('alerts')">View All Alerts</button>
+        </div>
+        <div class="cyber-card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-cyber align-middle" id="dashboard-alerts-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Flow ID</th>
+                  <th>Verdict</th>
+                  <th>Classification</th>
+                  <th>Energy Score</th>
+                  <th>Severity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-alerts-body">
+                <tr>
+                  <td colspan="7" class="text-center text-muted py-4">
+                    <i class="fa-solid fa-spinner fa-spin me-2"></i> Listening for network events...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- VIEW 2: LIVE MONITOR -->
+    <!-- ============================================================== -->
+    <div class="view-panel d-none" id="view-monitor">
+      <!-- Monitor Controls Card -->
+      <div class="cyber-card mb-4">
+        <div class="cyber-card-body">
+          <div class="row align-items-center g-3">
+            <div class="col-md-4">
+              <div class="d-flex align-items-center gap-2">
+                <button class="btn cyber-btn" id="btn-stream-toggle">
+                  <i class="fa-solid fa-play me-1"></i> Start Live Stream
+                </button>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary stream-speed-btn" data-speed="1.0">1x</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary stream-speed-btn active" data-speed="2.0">2x</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary stream-speed-btn" data-speed="4.0">4x</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <label class="form-label small text-secondary d-flex justify-content-between mb-1">
+                <span>Novelty Rejection Threshold (&tau;):</span>
+                <span class="text-info fw-bold" id="slider-threshold-val">-7.4400</span>
+              </label>
+              <input type="range" class="form-range" id="threshold-slider" min="-12.0" max="-2.0" step="0.05" value="-7.44">
+              <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem;">
+                <span>Stricter (More Alerts)</span>
+                <span>Calibrated 5% FPR</span>
+                <span>Permissive</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 text-end">
+              <button class="btn btn-sm cyber-btn-outline" id="btn-save-threshold">
+                <i class="fa-solid fa-floppy-disk me-1"></i> Apply & Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time Flow Feed & Live Gauge -->
+      <div class="row g-4">
+        <!-- Live Table -->
+        <div class="col-lg-8">
+          <div class="cyber-card">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-wave-square text-info me-2"></i>Real-Time Ingestion Feed</span>
+              <span class="badge bg-secondary" id="stream-flow-counter">0 Flows Received</span>
+            </div>
+            <div class="cyber-card-body p-0">
+              <div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+                <table class="table table-cyber align-middle" id="live-stream-table">
+                  <thead class="sticky-top">
+                    <tr>
+                      <th>Time</th>
+                      <th>Flow ID</th>
+                      <th>Proto / Port</th>
+                      <th>Verdict</th>
+                      <th>Novelty Score</th>
+                      <th>Inspect</th>
+                    </tr>
+                  </thead>
+                  <tbody id="live-stream-tbody">
+                    <tr>
+                      <td colspan="6" class="text-center text-muted py-5">
+                        <i class="fa-solid fa-circle-play fa-2x mb-3 d-block text-secondary"></i>
+                        Click <strong>Start Live Stream</strong> to begin simulated perimeter packet ingestion.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gauge and Current Flow Card -->
+        <div class="col-lg-4">
+          <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-gauge text-warning me-2"></i>Energy Score Meter</span>
+            </div>
+            <div class="cyber-card-body text-center">
+              <div style="height: 190px; position: relative;">
+                <canvas id="noveltyGaugeChart"></canvas>
+              </div>
+              <div class="mt-2">
+                <div class="h3 fw-bold text-light mb-0" id="gauge-score-display">-7.60</div>
+                <div class="text-muted small">Current Flow Energy Score</div>
+                <div class="badge bg-dark-subtle border mt-2" id="gauge-verdict-badge">Waiting for traffic...</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cyber-card">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-circle-info text-info me-2"></i>Energy Score Mechanics</span>
+            </div>
+            <div class="cyber-card-body small text-secondary">
+              <p class="mb-2"><strong>Free Energy:</strong> $E(x) = -\log \sum_{c=1}^K \exp(z_c)$</p>
+              <ul class="ps-3 mb-0">
+                <li class="mb-1"><strong>In-Distribution:</strong> Higher logit activations $\rightarrow$ Low energy ($E &lt; \tau$).</li>
+                <li class="mb-1"><strong>Zero-Day Novelty:</strong> Low, uniform activations $\rightarrow$ High energy ($E &gt; \tau$).</li>
+                <li><strong>Calibrated Cutoff:</strong> Set to limit benign false positives to 5%.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- VIEW 3: ANALYZE UPLOAD -->
+    <!-- ============================================================== -->
+    <div class="view-panel d-none" id="view-upload">
+      <div class="cyber-card mb-4">
+        <div class="cyber-card-header">
+          <span><i class="fa-solid fa-cloud-arrow-up text-info me-2"></i>Upload Network Flow Dataset (CSV)</span>
+        </div>
+        <div class="cyber-card-body">
+          <!-- Drag & Drop Zone -->
+          <div class="upload-zone mb-3" id="drop-zone">
+            <i class="fa-solid fa-file-csv fa-3x text-info mb-3"></i>
+            <h5 class="fw-bold">Drag & Drop Flow CSV File Here</h5>
+            <p class="text-muted small mb-3">Accepts standard network flow captures (CIC-IDS2017 format or custom flow logs)</p>
+            <input type="file" id="file-input" accept=".csv" class="d-none">
+            <button class="btn cyber-btn" onclick="document.getElementById('file-input').click()">
+              <i class="fa-solid fa-folder-open me-1"></i> Browse Files
+            </button>
+          </div>
+
+          <!-- Pre-Packaged Demo Datasets -->
+          <div class="d-flex align-items-center justify-content-between p-3 bg-dark-subtle rounded border border-secondary-subtle">
+            <div>
+              <strong class="small text-light">Or Test with Pre-Packaged Scenarios:</strong>
+              <div class="text-muted small">Download sample datasets and test instant offline batch scanning</div>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="/api/sample-csv?variant=benign" class="btn btn-sm btn-outline-success">
+                <i class="fa-solid fa-download me-1"></i> Clean Benign
+              </a>
+              <a href="/api/sample-csv?variant=mixed" class="btn btn-sm btn-outline-warning">
+                <i class="fa-solid fa-download me-1"></i> Mixed Threats
+              </a>
+              <a href="/api/sample-csv?variant=zero_day" class="btn btn-sm btn-outline-danger">
+                <i class="fa-solid fa-download me-1"></i> Hidden Zero-Days
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Results Container -->
+      <div id="upload-results-section" class="d-none">
+        <!-- Results Summary Bar -->
+        <div class="cyber-card mb-4">
+          <div class="cyber-card-body py-3">
+            <div class="row align-items-center text-center">
+              <div class="col-md-2 border-end border-secondary-subtle">
+                <div class="text-muted small">Total Processed</div>
+                <div class="h4 fw-bold mb-0 text-light" id="res-total-flows">0</div>
+              </div>
+              <div class="col-md-2 border-end border-secondary-subtle">
+                <div class="text-muted small">Benign Traffic</div>
+                <div class="h4 fw-bold mb-0 text-success" id="res-benign-count">0</div>
+              </div>
+              <div class="col-md-2 border-end border-secondary-subtle">
+                <div class="text-muted small">Known Attacks</div>
+                <div class="h4 fw-bold mb-0 text-warning" id="res-known-count">0</div>
+              </div>
+              <div class="col-md-3 border-end border-secondary-subtle">
+                <div class="text-muted small">Potential Zero-Days</div>
+                <div class="h4 fw-bold mb-0 text-danger" id="res-zd-count">0</div>
+              </div>
+              <div class="col-md-3">
+                <div class="text-muted small">Inference Latency</div>
+                <div class="h4 fw-bold mb-0 text-info" id="res-latency">0.0 ms/flow</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Results Table -->
+        <div class="cyber-card">
+          <div class="cyber-card-header">
+            <div class="d-flex align-items-center gap-2">
+              <span><i class="fa-solid fa-list-check text-info me-2"></i>Analysis Results</span>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-outline-secondary filter-verdict-btn active" data-filter="all">All</button>
+                <button type="button" class="btn btn-outline-danger filter-verdict-btn" data-filter="Potential Zero-Day">Zero-Days</button>
+                <button type="button" class="btn btn-outline-warning filter-verdict-btn" data-filter="Known Attack">Known Attacks</button>
+                <button type="button" class="btn btn-outline-success filter-verdict-btn" data-filter="Benign">Benign</button>
+              </div>
+            </div>
+            <button class="btn btn-sm cyber-btn-outline" id="btn-export-csv">
+              <i class="fa-solid fa-file-export me-1"></i> Export Results CSV
+            </button>
+          </div>
+          <div class="cyber-card-body p-0">
+            <div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+              <table class="table table-cyber align-middle" id="upload-results-table">
+                <thead class="sticky-top">
+                  <tr>
+                    <th>Flow ID</th>
+                    <th>Protocol / Port</th>
+                    <th>Verdict</th>
+                    <th>Class / Target</th>
+                    <th>Novelty Score</th>
+                    <th>Confidence</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="upload-results-tbody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- VIEW 4: SECURITY ALERTS -->
+    <!-- ============================================================== -->
+    <div class="view-panel d-none" id="view-alerts">
+      <div class="cyber-card">
+        <div class="cyber-card-header">
+          <div class="d-flex align-items-center gap-3">
+            <span><i class="fa-solid fa-shield-virus text-danger me-2"></i>Historical Alert Log</span>
+            <select class="form-select form-select-sm bg-dark border-secondary text-light" id="alert-severity-filter" style="width: 140px;">
+              <option value="all">All Severities</option>
+              <option value="critical">Critical (Zero-Day)</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+            <select class="form-select form-select-sm bg-dark border-secondary text-light" id="alert-verdict-filter" style="width: 160px;">
+              <option value="all">All Verdicts</option>
+              <option value="Potential Zero-Day">Potential Zero-Day</option>
+              <option value="Known Attack">Known Attack</option>
+            </select>
+          </div>
+          <button class="btn btn-sm cyber-btn-outline" onclick="app.loadAlerts(1)">
+            <i class="fa-solid fa-rotate-right me-1"></i> Refresh
+          </button>
+        </div>
+        <div class="cyber-card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-cyber align-middle">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Flow ID</th>
+                  <th>Severity</th>
+                  <th>Verdict</th>
+                  <th>Classification</th>
+                  <th>Energy Score</th>
+                  <th>Inspect</th>
+                </tr>
+              </thead>
+              <tbody id="alerts-page-tbody">
+                <tr>
+                  <td colspan="7" class="text-center text-muted py-5">Loading alerts from SQLite database...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Pagination Footer -->
+        <div class="cyber-card-footer p-3 border-top border-secondary-subtle d-flex justify-content-between align-items-center">
+          <span class="text-muted small" id="alerts-pagination-info">Showing page 1</span>
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-outline-secondary" id="btn-prev-alerts"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+            <button class="btn btn-outline-secondary" id="btn-next-alerts">Next <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- VIEW 5: MODEL PERFORMANCE (LOAO & BASELINES) -->
+    <!-- ============================================================== -->
+    <div class="view-panel d-none" id="view-performance">
+      <!-- Benchmark Summary Row -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">
+          <div class="cyber-card p-3 text-center">
+            <div class="kpi-title">FlowTransformer AUROC</div>
+            <div class="kpi-value text-info" id="perf-mean-auroc">0.9999</div>
+            <div class="kpi-subtext">Mean across held-out zero-days</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cyber-card p-3 text-center">
+            <div class="kpi-title">FlowTransformer AUPR</div>
+            <div class="kpi-value text-success" id="perf-mean-aupr">0.9998</div>
+            <div class="kpi-subtext">Precision-Recall Area</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cyber-card p-3 text-center">
+            <div class="kpi-title">FPR @ 95% TPR</div>
+            <div class="kpi-value text-danger" id="perf-mean-fpr">0.0004</div>
+            <div class="kpi-subtext">Benign false alarms at 95% recall</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cyber-card p-3 text-center">
+            <div class="kpi-title">Known Classes Macro-F1</div>
+            <div class="kpi-value text-warning" id="perf-mean-f1">1.0000</div>
+            <div class="kpi-subtext">Classification fidelity</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparative Bar Charts -->
+      <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+          <div class="cyber-card">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-chart-simple text-info me-2"></i>AUROC Comparison (Zero-Day Detection)</span>
+              <span class="badge bg-secondary">Higher is Better</span>
+            </div>
+            <div class="cyber-card-body">
+              <div style="height: 300px; position: relative;">
+                <canvas id="aurocCompareChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="cyber-card">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-chart-simple text-danger me-2"></i>FPR @ 95% TPR Comparison</span>
+              <span class="badge bg-secondary">Lower is Better</span>
+            </div>
+            <div class="cyber-card-body">
+              <div style="height: 300px; position: relative;">
+                <canvas id="fprCompareChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comprehensive LOAO Table -->
+      <div class="cyber-card">
+        <div class="cyber-card-header">
+          <span><i class="fa-solid fa-table-list text-info me-2"></i>Leave-One-Attack-Out (LOAO) Benchmark Breakdown</span>
+          <span class="badge bg-info-subtle text-info">Transformer vs Baselines</span>
+        </div>
+        <div class="cyber-card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-cyber align-middle" id="loao-table">
+              <thead>
+                <tr>
+                  <th>Held-Out Attack</th>
+                  <th>Model</th>
+                  <th>AUROC</th>
+                  <th>AUPR</th>
+                  <th>FPR @ 95% TPR</th>
+                  <th>Known Macro-F1</th>
+                </tr>
+              </thead>
+              <tbody id="loao-tbody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- VIEW 6: HOW IT WORKS (ARCHITECTURE & PIPELINE) -->
+    <!-- ============================================================== -->
+    <div class="view-panel d-none" id="view-architecture">
+      <!-- High Level Pipeline Diagram -->
+      <div class="cyber-card mb-4">
+        <div class="cyber-card-header">
+          <span><i class="fa-solid fa-diagram-project text-info me-2"></i>ZeroShield End-to-End Inference Pipeline</span>
+        </div>
+        <div class="cyber-card-body py-4">
+          <div class="row g-3 align-items-center justify-content-center text-center">
+            <div class="col-md-2">
+              <div class="pipeline-step">
+                <i class="fa-solid fa-network-wired fa-2x text-info mb-2"></i>
+                <div class="fw-bold small">1. Raw Flow Capture</div>
+                <div class="text-muted" style="font-size: 0.72rem;">PCAP / NetFlow / IPFIX</div>
+                <div class="badge bg-danger-subtle text-danger mt-1" style="font-size: 0.65rem;">No IP / No Raw Ports</div>
+              </div>
+            </div>
+            <div class="col-md-1 pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="col-md-2">
+              <div class="pipeline-step">
+                <i class="fa-solid fa-cubes fa-2x text-warning mb-2"></i>
+                <div class="fw-bold small">2. Feature Tokenizer</div>
+                <div class="text-muted" style="font-size: 0.72rem;">FT-Transformer style</div>
+                <div class="badge bg-secondary mt-1" style="font-size: 0.65rem;">12 Tokens + [CLS]</div>
+              </div>
+            </div>
+            <div class="col-md-1 pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="col-md-2">
+              <div class="pipeline-step">
+                <i class="fa-solid fa-brain fa-2x text-success mb-2"></i>
+                <div class="fw-bold small">3. Self-Attention</div>
+                <div class="text-muted" style="font-size: 0.72rem;">3 Layers &bull; 4 Heads</div>
+                <div class="badge bg-success-subtle text-success mt-1" style="font-size: 0.65rem;">d_model = 64</div>
+              </div>
+            </div>
+            <div class="col-md-1 pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="col-md-3">
+              <div class="pipeline-step border-info">
+                <i class="fa-solid fa-bolt fa-2x text-info mb-2"></i>
+                <div class="fw-bold small">4. Dual Head Engine</div>
+                <div class="text-muted" style="font-size: 0.72rem;">Logits + Energy Novelty Score</div>
+                <div class="badge bg-danger mt-1" style="font-size: 0.65rem;">5% FPR Cutoff Rejection</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deep Dive Explanations -->
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="cyber-card h-100">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-atom text-info me-2"></i>Energy-Based Open-Set Rejection</span>
+            </div>
+            <div class="cyber-card-body">
+              <h6 class="fw-bold text-light mb-2">Why Softmax Probabilities Fail on Zero-Day Exploits</h6>
+              <p class="text-secondary small">
+                Conventional deep classifiers force logits through a softmax normalizer:
+                <code>P(y=c|x) = exp(z_c) / &Sigma; exp(z_j)</code>. When exposed to an entirely novel Zero-Day exploit with no training precedent, standard softmax often collapses into arbitrarily overconfident predictions due to high magnitude activations in arbitrary dimensions.
+              </p>
+              <h6 class="fw-bold text-light mb-2">Free Energy Function Formulation</h6>
+              <p class="text-secondary small">
+                ZeroShield solves this using non-probabilistic Gibbs Free Energy:
+                <br>
+                <code class="text-info">E(x; T) = -T &times; log &sum;<sub>c=1</sub><sup>K</sup> exp(z_c / T)</code>
+                <br>
+                Unlike softmax, free energy aligns monotonically with the true data density <code>p(x)</code>. Unseen zero-day flows produce low, flat activations, generating high energy scores that immediately cross the calibrated rejection boundary.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="cyber-card h-100">
+            <div class="cyber-card-header">
+              <span><i class="fa-solid fa-shield-halved text-success me-2"></i>FT-Transformer Network Flow Tokenization</span>
+            </div>
+            <div class="cyber-card-body">
+              <h6 class="fw-bold text-light mb-2">Cross-Feature Attention Without Memorization</h6>
+              <p class="text-secondary small">
+                Most perimeter network models memorize raw IP addresses or ephemeral port numbers, failing immediately when deployed on a different subnet. ZeroShield strictly enforces:
+              </p>
+              <ul class="text-secondary small ps-3">
+                <li><strong>No IP Addresses:</strong> Purely behavioral and statistical properties.</li>
+                <li><strong>Port Categorization:</strong> Raw ports are mapped to standard categories (<em>well-known [0-1023]</em>, <em>registered [1024-49151]</em>, and <em>ephemeral [49152-65535]</em>).</li>
+                <li><strong>FT-Transformer Token Embedding:</strong> Continuous features (packet rates, byte rates, IAT variance, TCP flags) are projected into $d_{model}=64$ vector tokens, allowing self-attention layers to model subtle correlations between flag timing and payload distributions.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- MODAL: ALERT & FLOW INSPECTION DETAILS -->
+  <!-- ============================================================== -->
+  <div class="modal fade" id="flowDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalFlowId">Flow Inspection: FL-1001</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Flow Verdict Banner -->
+          <div class="d-flex justify-content-between align-items-center p-3 rounded mb-3" id="modalVerdictBanner">
+            <div>
+              <span class="text-muted small">Verdict:</span>
+              <h5 class="fw-bold mb-0" id="modalVerdictText">Potential Zero-Day</h5>
+            </div>
+            <div class="text-end">
+              <span class="text-muted small">Novelty Score:</span>
+              <h5 class="fw-bold mb-0 text-danger" id="modalEnergyScore">-3.4200</h5>
+            </div>
+          </div>
+
+          <!-- Probability & Feature Contribution Row -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <h6 class="fw-bold text-light small mb-2"><i class="fa-solid fa-chart-bar text-info me-1"></i> Class Probabilities</h6>
+              <div style="height: 180px; position: relative;">
+                <canvas id="modalProbChart"></canvas>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6 class="fw-bold text-light small mb-2"><i class="fa-solid fa-magnifying-glass-chart text-warning me-1"></i> Top Contributing Features</h6>
+              <div id="modalTopFeaturesList" class="small">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Complete Flow Feature Table Grid -->
+          <h6 class="fw-bold text-light small mb-2"><i class="fa-solid fa-table-cells text-secondary me-1"></i> Flow Metadata & Behavioral Attributes</h6>
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered border-secondary-subtle small mb-0">
+              <tbody id="modalRawFeaturesTable">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- ZeroShield Modular JavaScript -->
+  <script src="/js/charts.js"></script>
+  <script src="/js/stream.js"></script>
+  <script src="/js/upload.js"></script>
+  <script src="/js/details.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

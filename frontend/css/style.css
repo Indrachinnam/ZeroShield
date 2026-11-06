@@ -1,0 +1,416 @@
+/* =====================================================================
+   ZeroShield - Dark Cybersecurity Operations Theme
+   ===================================================================== */
+
+:root {
+  --bg-dark: #070a13;
+  --bg-card: #0f172a;
+  --bg-card-hover: #162036;
+  --bg-card-border: #1e293b;
+  --bg-sidebar: #0b1120;
+  --border-color: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --color-cyan: #00f2fe;
+  --color-cyan-glow: rgba(0, 242, 254, 0.25);
+  --color-green: #10b981;
+  --color-green-glow: rgba(16, 185, 129, 0.25);
+  --color-amber: #f59e0b;
+  --color-amber-glow: rgba(245, 158, 11, 0.25);
+  --color-red: #ef4444;
+  --color-red-glow: rgba(239, 68, 68, 0.35);
+  --color-purple: #8b5cf6;
+  --color-purple-glow: rgba(139, 92, 246, 0.25);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cyan);
+}
+
+/* Sidebar Navigation */
+#sidebar {
+  min-height: 100vh;
+  width: 260px;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.brand-header {
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand-title {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.brand-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.25rem;
+}
+
+.nav-pills .nav-link {
+  color: var(--text-secondary);
+  border-radius: 8px;
+  margin: 0.2rem 0.75rem;
+  padding: 0.65rem 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.nav-pills .nav-link:hover {
+  color: var(--color-cyan);
+  background-color: rgba(0, 242, 254, 0.08);
+}
+
+.nav-pills .nav-link.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.2) 0%, rgba(79, 172, 254, 0.25) 100%);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 15px var(--color-cyan-glow);
+}
+
+/* Main Content Area */
+#main-content {
+  margin-left: 260px;
+  padding: 2rem 2.5rem;
+  min-height: 100vh;
+}
+
+/* Glassmorphism Cards */
+.cyber-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.cyber-card:hover {
+  border-color: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+.cyber-card-header {
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cyber-card-body {
+  padding: 1.4rem;
+}
+
+/* KPI Metric Cards */
+.kpi-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--kpi-border, var(--color-cyan));
+}
+
+.kpi-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.kpi-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0.35rem 0 0.2rem 0;
+}
+
+.kpi-subtext {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* Verdict Badges */
+.badge-verdict {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-benign {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.badge-known-attack {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.badge-zero-day {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 10px var(--color-red-glow);
+  animation: pulse-red 2s infinite ease-in-out;
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+  }
+}
+
+/* Pulsing Status Dot */
+.pulsing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pulsing-dot.dot-red {
+  background-color: var(--color-red);
+  box-shadow: 0 0 8px var(--color-red);
+}
+.pulsing-dot.dot-green {
+  background-color: var(--color-green);
+  box-shadow: 0 0 8px var(--color-green);
+}
+.pulsing-dot.dot-amber {
+  background-color: var(--color-amber);
+  box-shadow: 0 0 8px var(--color-amber);
+}
+
+/* Severity Indicators */
+.severity-critical {
+  color: #f87171;
+  font-weight: 700;
+}
+.severity-high {
+  color: #fbbf24;
+  font-weight: 700;
+}
+.severity-medium {
+  color: #38bdf8;
+  font-weight: 600;
+}
+.severity-low {
+  color: #34d399;
+  font-weight: 500;
+}
+
+/* Cyber Table */
+.table-cyber {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  margin-bottom: 0;
+}
+
+.table-cyber th {
+  background-color: #0d1527;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+.table-cyber td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+  vertical-align: middle;
+  font-size: 0.86rem;
+}
+
+.table-cyber tbody tr {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.table-cyber tbody tr:hover {
+  background-color: var(--bg-card-hover) !important;
+}
+
+/* Drag and Drop Upload Area */
+.upload-zone {
+  border: 2px dashed rgba(0, 242, 254, 0.35);
+  border-radius: 12px;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  background-color: rgba(15, 23, 42, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--color-cyan);
+  background-color: rgba(0, 242, 254, 0.05);
+  box-shadow: 0 0 20px var(--color-cyan-glow);
+}
+
+/* Custom Controls & Range Slider */
+.form-range::-webkit-slider-thumb {
+  background: var(--color-cyan);
+  box-shadow: 0 0 10px var(--color-cyan);
+}
+
+.cyber-btn {
+  background: linear-gradient(135deg, #00f2fe 0%, #00a8ff 100%);
+  color: #070a13;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.cyber-btn:hover {
+  box-shadow: 0 0 18px var(--color-cyan-glow);
+  transform: translateY(-1px);
+  color: #000;
+}
+
+.cyber-btn-outline {
+  background: transparent;
+  color: var(--color-cyan);
+  border: 1px solid var(--color-cyan);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.55rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.cyber-btn-outline:hover {
+  background: rgba(0, 242, 254, 0.1);
+  box-shadow: 0 0 15px var(--color-cyan-glow);
+  color: #ffffff;
+}
+
+/* Anomaly Gauge Meter */
+.gauge-container {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Synthetic Dataset Notice Banner */
+.synthetic-banner {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15) 0%, rgba(0, 242, 254, 0.15) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 8px;
+  padding: 0.65rem 1.2rem;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+/* Architecture Flow Nodes */
+.pipeline-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.pipeline-step:hover {
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 15px var(--color-cyan-glow);
+  transform: translateY(-3px);
+}
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-cyan);
+  font-size: 1.5rem;
+}
+
+/* Modal styling */
+.modal-content {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  color: var(--text-primary);
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-color);
+}
