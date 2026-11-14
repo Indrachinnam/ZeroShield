@@ -4,8 +4,24 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.2+-ee4c2c.svg)](https://pytorch.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Google Drive](https://img.shields.io/badge/Google%20Drive-Deliverables%20Folder-34A853?logo=googledrive&logoColor=white)](https://drive.google.com/drive/folders/1goQtQvCFU6n2zq4WEcPPUo-drJlYn_uH)
 
 **ZeroShield** is an autonomous cybersecurity perimeter defense platform that classifies network flow traffic using a Transformer architecture (**FlowTransformer**) and detects previously unseen **Zero-Day exploits** through an **Energy-Based Out-of-Distribution Novelty Score**.
+
+---
+
+## 📂 Project Deliverables & Research Documentation
+
+All project documentation, academic papers, and presentation slide decks are available in the public [Google Drive Deliverables Folder](https://drive.google.com/drive/folders/1goQtQvCFU6n2zq4WEcPPUo-drJlYn_uH):
+
+- 📄 [01_Project_Abstract.pdf](https://drive.google.com/file/d/1frmhyhvZpaUkJlretNOppEGNLTs0TiAM/view?usp=sharing) — Executive Project Abstract & System Summary
+- 📄 [02_Research_Paper_ZeroShield.pdf](https://drive.google.com/file/d/1-XmUIRVj_Vb2MNTp4rS3U1jn2UBrWm8M/view?usp=sharing) — IEEE Transactions-Formatted Research Paper
+- 📄 [03_Related_Research_Papers_Literature_Review.pdf](https://drive.google.com/file/d/1N2JjycF2TdrYgA-06e6_8_wBI7gwyuqd/view?usp=sharing) — Comprehensive Literature Review & Taxonomy Survey
+- 📄 [04_GitHub_Repository_Details.pdf](https://drive.google.com/file/d/1lEto8BKLTeaPvzNR8zzb6TcZTBjgLMbP/view?usp=sharing) — GitHub Source Architecture & Operational Breakdown
+- 📄 [05_Project_Deployment_URL.pdf](https://drive.google.com/file/d/120-ualIjIiP_z5h5VY4UTK9naseF_Tyt/view?usp=sharing) — Production Deployment Topologies & URLs Guide
+- 📄 [06_Complete_Project_Documentation.pdf](https://drive.google.com/file/d/1DyFm1smv0Wa736nKzS6IkMDQ6WE8zkY4/view?usp=sharing) — Complete Technical System Documentation
+- 📄 [ZeroShield_Complete_Project_Dossier.pdf](https://drive.google.com/file/d/11t_Do9-5FSo3lsCuolyIRQoye6FuqzjE/view?usp=sharing) — Master All-in-One Engineering Dossier
+- 📊 [ZeroShield_Presentation.pptx](https://drive.google.com/file/d/1_27tHwfevzkX1W0fWw6SZYwMRAeOLsXV/view?usp=sharing) — 14-Slide Technical & Executive Presentation
 
 ---
 
